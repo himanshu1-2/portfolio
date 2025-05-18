@@ -26,7 +26,7 @@ mongoose.connect(MONGO_URI, {
   await Project.deleteMany({});
   await Course.deleteMany({});
   await Contact.deleteMany({});
-  
+  await User.deleteMany({})
 
 
   // Insert sample data
@@ -36,7 +36,7 @@ mongoose.connect(MONGO_URI, {
   await Project.insertMany(sampleData.projects);
   await Course.insertMany(sampleData.courses);
   await Contact.create(sampleData.contacts);
-
+  await User.create({email:"himanshu.ajwani96@gmail.com",password:"him@1234"})
   console.log("Sample data inserted successfully");
   process.exit();
 })

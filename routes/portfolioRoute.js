@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const passport = require("passport");
 const {
   Intro,
   About,
@@ -232,14 +233,16 @@ router.post("/update-contact", async (req, res) => {
 // admin login
 router.post("/admin-login", async (req, res) => {
   try {
-   const {email,password} = req.body
-    const user = User.findByCredentials(email,password)
+   const {username:email,password} = req.body
+    const user = await User.findByCredentials(email,password)
+    const token =await  user.generateAuthToken()
+    console.log(token)
     if (user) {
       res.status(200).send({
         data: user,
         success: true,
         message: "Login successfully",
-        token:user.generateAuthToken()
+        token
       });
     } else {
       res.status(200).send({
@@ -252,5 +255,6 @@ router.post("/admin-login", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
 
 module.exports = router;

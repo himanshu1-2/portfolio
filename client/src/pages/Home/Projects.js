@@ -9,9 +9,10 @@ function Projects() {
 
   return (
     <div id="projects">
-      <SectionTitle  title="Projects" />
+      <SectionTitle title="Projects" />
       <div className="flex py-10 gap-20 sm:flex-col">
         <div className="flex flex-col gap-10 border-l-2 border-[#135e4c82] w-1/3 sm:flex-row sm:overflow-x-scroll sm:w-full">
+          {console.log(projects)}
           {projects.map((project, index) => (
             <div
               onClick={() => {
@@ -21,13 +22,13 @@ function Projects() {
             >
               <h1
                 className={`text-xl px-5
-                 ${
-                   selectedItemIndex === index
-                     ? "text-tertiary border-tertiary border-l-4 -ml-[3px] bg-[#1a7f5a31] py-3"
-                     : "text-white"
-                 } `}
+                 ${selectedItemIndex === index
+                    ? "text-tertiary border-tertiary border-l-4 -ml-[3px] bg-[#1a7f5a31] py-3"
+                    : "text-white"
+                  } `}
               >
                 {project.title}
+
               </h1>
             </div>
           ))}
@@ -46,12 +47,14 @@ function Projects() {
             <p className="text-white">
               {projects[selectedItemIndex].description}
             </p>
-            <p className="text-white">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              expedita accusantium nulla ad odio quisquam consequuntur
-              laudantium saepe ratione consectetur optio necessitatibus ut,
-              impedit ducimus corrupti ullam veniam error non.
-            </p>
+            <div className="flex space-x-2">
+
+              {projects[selectedItemIndex].technolgies.map((ele) => (
+                <p key={ele} className="px-2 py-1 bg-gray-200 rounded">
+                  {ele}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>

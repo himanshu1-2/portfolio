@@ -21,6 +21,7 @@ const introSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  technolgies:[String]
 });
 
 const aboutSchema = new mongoose.Schema({
