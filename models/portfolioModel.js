@@ -130,6 +130,12 @@ const contactSchema = new mongoose.Schema({
     required: true,
   },
 });
+const ResumeSchema = new mongoose.Schema({
+  filename: String,
+  originalname: String,
+  path: String,
+  uploadedAt: { type: Date, default: Date.now }
+});
 
 module.exports = {
   Intro: mongoose.model("intros", introSchema),
@@ -138,4 +144,5 @@ module.exports = {
   Project: mongoose.model("projects", projectsSchema),
   Course: mongoose.model("courses", coursesSchema),
   Contact: mongoose.model("contacts", contactSchema),
+  Resume : mongoose.model('Resume', ResumeSchema)
 };

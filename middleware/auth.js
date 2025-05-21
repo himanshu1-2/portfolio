@@ -11,7 +11,6 @@ passport.use(new BearerStrategy(async(token, done) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({_id:decoded._id})
-    console.log(user,decoded)
     if (!user) return done(null, false);
     return done(null, user);
   } catch (err) {

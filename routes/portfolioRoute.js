@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const passport = require("passport");
+const fs = require('fs')
+const path = require('path')
+const multer = require('multer')
 const {
   Intro,
   About,
@@ -7,6 +10,7 @@ const {
   Contact,
   Experience,
   Course,
+  Resume
 } = require("../models/portfolioModel");
 const User = require("../models/userModel");
 // get all portfolio data
@@ -236,7 +240,6 @@ router.post("/admin-login", async (req, res) => {
    const {username:email,password} = req.body
     const user = await User.findByCredentials(email,password)
     const token =await  user.generateAuthToken()
-    console.log(token)
     if (user) {
       res.status(200).send({
         data: user,
@@ -256,5 +259,54 @@ router.post("/admin-login", async (req, res) => {
   }
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({ storage });
 
+function deleteOldFiles() {
+  return (req, res, next) => {
+    const files = fs.readdirSync('public');
+    for (const file of files) {
+      fs.unlinkSync(path.join('public', file));
+    }
+    next()
+  }
+}
+// Upload route
+router.post('/upload',deleteOldFiles(), upload.single('resume'), async (req, res) => {
+  try {
+    const file = req.file;
+    const resume = await Resume.findOne({});
+    if (!resume) {
+      const newResume = new Resume({
+        filename: file.filename,
+        originalname: file.originalname,
+        path: `/public/${file.filename}`,
+      });
+      await newResume.save();
+      res.json({ message: 'Uploaded successfully', path: newResume.path });
+    }
+    const updateResume = await Resume.findOneAndUpdate({}, {
+      filename: file.filename,
+      originalname: file.originalname,
+      path: `/public/${file.filename}`,
+    }, { new: true })
+    res.json({ message: 'Uploaded successfully', path: updateResume.path });
+  } catch (error) {
+    res.send(error)
+  }
+
+
+});
+
+// Get latest resume
+router.get('/latest-resume', async (req, res) => {
+  const resume = await Resume.findOne().sort({ uploadedAt: -1 });
+  if (!resume) return res.status(404).json({ error: 'No resume found' });
+ res.json({
+  downloadUrl: `http://localhost:5000/public/${encodeURIComponent(resume.filename)}`
+});
+});
 module.exports = router;
