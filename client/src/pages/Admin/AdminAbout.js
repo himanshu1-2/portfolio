@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShowLoading, HideLoading } from "../../redux/rootSlice";
 import axios from "axios";
 import { message } from "antd";
-
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 function AdminAbout() {
   const dispatch = useDispatch();
+   const [file, setFile] = useState(null);
+    const [downloadUrl, setDownloadUrl] = useState('');
   const { portfolioData } = useSelector((state) => state.root);
   const onFinish = async (values) => {
     try {
@@ -28,7 +31,19 @@ function AdminAbout() {
       message.error(error.message);
     }
   };
+ const uploadResume = async () => {
+    const formData = new FormData();
+    formData.append('resume', file);
 
+    const res = await axios.post('http://localhost:5000/upload', formData);
+    alert('Resume uploaded!');
+    setDownloadUrl(`http://localhost:5000${res.data.path}`);
+  };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/admin-login");
+  };
   return (
     <div>
       <Form
@@ -57,6 +72,18 @@ function AdminAbout() {
         <div className="flex justify-end w-full" label="Welcome Text">
           <button className="px-10 py-2 bg-primary text-white" type="submit">
             SAVE
+          </button>
+          <button
+            onClick={handleLogout}
+            className="mt-10 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
+          <button
+            onClick={uploadResume}
+            className="mt-10 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+           Resume upload
           </button>
         </div>
       </Form>

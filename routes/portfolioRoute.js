@@ -274,6 +274,8 @@ function deleteOldFiles() {
     next()
   }
 }
+
+
 // Upload route
 router.post('/upload',deleteOldFiles(), upload.single('resume'), async (req, res) => {
   try {

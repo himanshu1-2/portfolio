@@ -30,7 +30,7 @@ const ResumeUploader = () => {
 
   return (
     <div>
-       <button className="" onClick={fetchDownloadLink}>Resume</button>
+       <button  onClick={fetchDownloadLink}>Resume</button>
     </div>
   );
 };

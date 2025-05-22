@@ -13,6 +13,7 @@ import {
 } from "./redux/rootSlice";
 import Admin from "./pages/Admin";
 import Login from "./pages/Admin/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const { loading, portfolioData, reloadData } = useSelector(
@@ -48,7 +49,9 @@ function App() {
       {loading ? <Loader /> : null}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Admin />} />
+
+        <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+
         <Route path="/admin-login" element={<Login />} />
       </Routes>
     </BrowserRouter>
