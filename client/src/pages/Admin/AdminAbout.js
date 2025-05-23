@@ -35,7 +35,7 @@ function AdminAbout() {
     const formData = new FormData();
     formData.append('resume', file);
 
-    const res = await axios.post('http://localhost:5000/upload', formData);
+    const res = await axios.post('http://localhost:5000/api/portfolio/upload', formData);
     alert('Resume uploaded!');
     setDownloadUrl(`http://localhost:5000${res.data.path}`);
   };
@@ -44,6 +44,8 @@ function AdminAbout() {
     localStorage.removeItem("token");
     navigate("/admin-login");
   };
+
+   const handleFileChange = (e) => setFile(e.target.files[0]);
   return (
     <div>
       <Form
@@ -79,6 +81,7 @@ function AdminAbout() {
           >
             Logout
           </button>
+           <input type="file" onChange={handleFileChange} />
           <button
             onClick={uploadResume}
             className="mt-10 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"

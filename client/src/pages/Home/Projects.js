@@ -47,9 +47,12 @@ function Projects() {
             <p className="text-white">
               {projects[selectedItemIndex].description}
             </p>
+             <a href className="text-white">
+              {projects[selectedItemIndex].link}
+            </a>
             <div className="flex space-x-2">
 
-              {projects[selectedItemIndex].technolgies.map((ele) => (
+              {projects[selectedItemIndex].technologies.map((ele) => (
                 <p key={ele} className="px-2 py-1 bg-gray-200 rounded">
                   {ele}
                 </p>

@@ -38,14 +38,14 @@ const sampleData = {
       description: "Built a full-featured medicine delivery platform including user authentication, search, cart, and order tracking.",
       image: "https://via.placeholder.com/300x200.png?text=E-Commerce",
       link: "https://github.com/himanshuajwani/medicine-shop",
-      technolgies: ["Node.js", "Express", "MongoDB", "JWT", "AWS"]
+      technologies: ["Node.js", "Express", "MongoDB", "JWT", "AWS"]
     },
     {
       title: "Portfolio Website",
       description: "Personal website to showcase resume, projects, and blogs with an admin panel.",
       image: "https://via.placeholder.com/300x200.png?text=Portfolio",
       link: "https://himanshuajwani.dev",
-      technolgies: ["React", "Node.js", "MongoDB", "TailwindCSS"]
+      technologies: ["React", "Node.js", "MongoDB", "TailwindCSS"]
     }
   ],
 

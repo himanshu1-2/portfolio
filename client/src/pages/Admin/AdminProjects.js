@@ -19,7 +19,7 @@ function AdminProjects() {
       dispatch(ShowLoading());
       let response;
       if (selectedItemForEdit) {
-        response = await axios.post("/api/portfolio/update-project", {
+        response = await axios.put("/api/portfolio/update-project", {
           ...values,
           _id: selectedItemForEdit._id,
         });

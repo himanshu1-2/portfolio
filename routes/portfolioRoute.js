@@ -136,7 +136,7 @@ router.post("/add-project", async (req, res) => {
 });
 
 // update project
-router.post("/update-project", async (req, res) => {
+router.put("/update-project", async (req, res) => {
   try {
     const project = await Project.findOneAndUpdate(
       { _id: req.body._id },

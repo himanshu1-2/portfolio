@@ -21,7 +21,7 @@ const introSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  technolgies:[String]
+  technologies:[String]
 });
 
 const aboutSchema = new mongoose.Schema({
@@ -79,7 +79,7 @@ const projectsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  technolgies: {
+  technologies: {
     type: Array,
     required: true,
   },
