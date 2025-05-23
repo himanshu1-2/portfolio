@@ -13,9 +13,9 @@ function Contact() {
         <div className="flex flex-col">
           <p className="text-tertiary">{"{"}</p>
           {Object.keys(contact).map(
-            (key) =>
+            (key,index) =>
               key !== "_id" && (
-                <p className="ml-5">
+                <p key={index} className="ml-5">
                   <span className="text-tertiary">{key} : </span>
                   <span className="text-tertiary">{contact[key]}</span>
                 </p>

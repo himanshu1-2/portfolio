@@ -12,14 +12,14 @@ function Projects() {
       <SectionTitle title="Projects" />
       <div className="flex py-10 gap-20 sm:flex-col">
         <div className="flex flex-col gap-10 border-l-2 border-[#135e4c82] w-1/3 sm:flex-row sm:overflow-x-scroll sm:w-full">
-          {console.log(projects)}
           {projects.map((project, index) => (
-            <div
+            <div key={index}
               onClick={() => {
                 setSelectedItemIndex(index);
               }}
               className="cursor-pointer"
             >
+              
               <h1
                 className={`text-xl px-5
                  ${selectedItemIndex === index
@@ -47,7 +47,7 @@ function Projects() {
             <p className="text-white">
               {projects[selectedItemIndex].description}
             </p>
-             <a href className="text-white">
+            <a href={projects[selectedItemIndex].link} className="text-white" target="_blank" rel="noopener noreferrer">
               {projects[selectedItemIndex].link}
             </a>
             <div className="flex space-x-2">
